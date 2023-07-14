@@ -44,4 +44,6 @@ if user_prompt := st.chat_input("Your prompt"):
             full_response += response.choices[0].delta.get("content", "")
             message_placeholder.markdown(full_response + "▌")
 
+        message_placeholder.markdown(full_response)
+
     st.session_state.messages.append({"role": "assistant", "content": full_response})
