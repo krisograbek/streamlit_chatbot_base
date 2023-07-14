@@ -21,32 +21,36 @@ cd streamlit_chatbot_base
 3. Create a virtual environment and activate it:
 
 On macOS and Linux:
-shell
-Copy code
+```shell
 python3 -m venv myenv
 source myenv/bin/activate
+```
+
 On Windows:
-shell
-Copy code
+```shell
 python -m venv myenv
 .\myenv\Scripts\activate
-Install the necessary Python packages:
-shell
-Copy code
+```
+
+4. Install the necessary Python packages:
+```shell
 pip install -r requirements.txt
-Create a .env file in the root directory of the project and add your OpenAI API key:
-shell
-Copy code
+```
+
+5. Create a .env file in the root directory of the project and add your OpenAI API key:
+```shell
 echo OPENAI_API_KEY=your-api-key > .env
+```
+
 Please replace your-api-key with your actual OpenAI API key.
 
-Run the Streamlit application:
-shell
-Copy code
-streamlit run your-app-script.py
-Please replace your-app-script.py with the name of your Streamlit app script.
+6. Run the Streamlit application:
+```shell
+streamlit run chatbot.py
+```
 
 Open a web browser and navigate to http://localhost:8501 to interact with the application.
+
 License
 This project is open source, under the terms of the MIT license.
 
