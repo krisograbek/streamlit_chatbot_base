@@ -1,6 +1,6 @@
 ## Template for creating your own ChatGPT with Streamlit and OpenAI API
 
-This repository contains the code for a simple web application built with Streamlit, which uses OpenAI's GPT-3 model for generating AI responses in a chat-like interface.
+This repository contains the code for a simple web application built with [Streamlit](https://streamlit.io/), which uses OpenAI's GPT-3 model for generating AI responses in a chat-like interface.
 
 ### Prerequisites
 1. Python 3.6 or above
