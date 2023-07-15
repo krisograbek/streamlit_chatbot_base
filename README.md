@@ -41,6 +41,11 @@ pip install -r requirements.txt
 ```shell
 echo OPENAI_API_KEY=your-api-key > .env
 ```
+OR
+
+```shell
+cp .env.example .env
+```
 
 Please replace your-api-key with your actual OpenAI API key.
 
