@@ -32,6 +32,11 @@ python -m venv myenv
 .\myenv\Scripts\activate
 ```
 
+3a. Upgrade pip (optional but recommended)
+```shell
+pip install --upgrade pip
+```
+
 4. Install the necessary Python packages:
 ```shell
 pip install -r requirements.txt
