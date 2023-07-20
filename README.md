@@ -6,6 +6,9 @@ This repository contains the code for a simple web application built with [Strea
 1. Python 3.6 or above
 2. An OpenAI API Key
 
+### App Demo
+![StreamlitChatbot](https://github.com/krisograbek/streamlit_chatbot_base/assets/48050596/e1c62c71-0b3d-4a3b-9855-e48fc73e402b)
+
 
 ### Steps to run the application
 **1. Clone the repository to your local machine:**
