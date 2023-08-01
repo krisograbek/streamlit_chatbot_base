@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 import os
-
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -47,9 +47,10 @@ if user_prompt := st.chat_input("Your prompt"):
             stream=True,
         ):
             full_response += response.choices[0].delta.get("content", "")
-            st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
-            st.session_state.completion_tokens += response["usage"]["completion_tokens"]
-            st.session_state.total_tokens += response["usage"]["total_tokens"]
+            # st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
+            # st.session_state.completion_tokens += response["usage"]["completion_tokens"]
+            # st.session_state.total_tokens += response["usage"]["total_tokens"]
+            message_placeholder.markdown(json.dumps(response))
             message_placeholder.markdown(full_response + "▌")
 
         message_placeholder.markdown(full_response)
