@@ -8,6 +8,10 @@ load_dotenv()
 
 openai.api_key = st.secrets["OPEN_AI_API"]
 
+st.set_page_config(
+    page_title="Customer Service Chat",
+    page_icon="🧊")
+
 st.title("Experience Our AI-powered Customer Service! 🤖")
 
 if "messages" not in st.session_state:
