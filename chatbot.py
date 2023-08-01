@@ -8,10 +8,15 @@ load_dotenv()
 
 openai.api_key = st.secrets["OPEN_AI_API"]
 
-st.title("My Own ChatGPT!🤖")
+st.title("Experience Our AI-powered Customer Service! 🤖")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    st.session_state.prompt_tokens = 0
+    st.session_state.completion_tokens = 0
+    st.session_state.total_tokens = 0
+
+    st.session_state.cost_of_response = st.session_state.total_tokens * 0.000002
 
 
 for message in st.session_state["messages"]:
@@ -47,3 +52,6 @@ if user_prompt := st.chat_input("Your prompt"):
         message_placeholder.markdown(full_response)
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+    st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
+    st.session_state.completion_tokens += response["usage"]["completion_tokens"]
+    st.session_state.total_tokens += response["usage"]["total_tokens"]
