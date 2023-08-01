@@ -48,9 +48,9 @@ if user_prompt := st.chat_input("Your prompt"):
         )
 
         string_response = json_response["choices"][0]["message"]["content"]
-        st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
-        st.session_state.completion_tokens += response["usage"]["completion_tokens"]
-        st.session_state.total_tokens += response["usage"]["total_tokens"]
+        st.session_state.prompt_tokens += json_response["usage"]["prompt_tokens"]
+        st.session_state.completion_tokens += json_response["usage"]["completion_tokens"]
+        st.session_state.total_tokens += json_response["usage"]["total_tokens"]
         for s in string_response:
             full_response += s
             message_placeholder.markdown(full_response + "▌")
