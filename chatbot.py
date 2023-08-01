@@ -53,7 +53,7 @@ if user_prompt := st.chat_input("Your prompt"):
         st.session_state.total_tokens += json_response["usage"]["total_tokens"]
         for s in string_response:
             full_response += s
-            message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(s + "▌")
 
         message_placeholder.markdown(full_response +  json.dumps(string_response))
 
