@@ -1,14 +1,14 @@
 import streamlit as st
 import openai
 import os
-import json
+
 from dotenv import load_dotenv
 
 load_dotenv()
 
 openai.api_key = st.secrets["OPEN_AI_API"]
 
-st.title("Experience Our AI-powered Customer Services! 🤖")
+st.title("Experience Our AI-powered Customer Service! 🤖")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -38,24 +38,17 @@ if user_prompt := st.chat_input("Your prompt"):
         message_placeholder = st.empty()
         full_response = ""
 
-        json_response = openai.ChatCompletion.create(
+        for response in openai.ChatCompletion.create(
             model=st.session_state.model,
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
-            stream=False,
-        )
+            stream=True,
+        ):
+            full_response += response.choices[0].delta.get("content", "")
+            message_placeholder.markdown(full_response + "▌")
 
-        string_response = json_response["choices"][0]["message"]["content"]
-        st.session_state.prompt_tokens += json_response["usage"]["prompt_tokens"]
-        st.session_state.completion_tokens += json_response["usage"]["completion_tokens"]
-        st.session_state.total_tokens += json_response["usage"]["total_tokens"]
-        for s in string_response:
-            full_response += s
-            message_placeholder.markdown(s + "▌")
-
-        message_placeholder.markdown(full_response +  json.dumps(string_response))
+        message_placeholder.markdown(full_response)
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-
