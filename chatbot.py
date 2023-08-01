@@ -52,6 +52,8 @@ if user_prompt := st.chat_input("Your prompt"):
         message_placeholder.markdown(full_response)
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-    st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
-    st.session_state.completion_tokens += response["usage"]["completion_tokens"]
-    st.session_state.total_tokens += response["usage"]["total_tokens"]
+    print(response)
+    print(response.keys())
+    # st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
+    # st.session_state.completion_tokens += response["usage"]["completion_tokens"]
+    # st.session_state.total_tokens += response["usage"]["total_tokens"]
