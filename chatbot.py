@@ -8,7 +8,7 @@ load_dotenv()
 
 openai.api_key = st.secrets["OPEN_AI_API"]
 
-st.title("Experience Our AI-powered Customer Service! 🤖")
+st.title("Experience Our AI-powered Customer Services! 🤖")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -47,13 +47,12 @@ if user_prompt := st.chat_input("Your prompt"):
             stream=True,
         ):
             full_response += response.choices[0].delta.get("content", "")
+            st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
+            st.session_state.completion_tokens += response["usage"]["completion_tokens"]
+            st.session_state.total_tokens += response["usage"]["total_tokens"]
             message_placeholder.markdown(full_response + "▌")
 
         message_placeholder.markdown(full_response)
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-    print(response)
-    print(response.keys())
-    # st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
-    # st.session_state.completion_tokens += response["usage"]["completion_tokens"]
-    # st.session_state.total_tokens += response["usage"]["total_tokens"]
+
