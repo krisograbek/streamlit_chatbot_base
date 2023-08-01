@@ -55,7 +55,7 @@ if user_prompt := st.chat_input("Your prompt"):
             full_response += s
             message_placeholder.markdown(full_response + "▌")
 
-        message_placeholder.markdown(full_response +  json.dumps(response))
+        message_placeholder.markdown(full_response +  json.dumps(string_response))
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
