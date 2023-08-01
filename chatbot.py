@@ -38,18 +38,21 @@ if user_prompt := st.chat_input("Your prompt"):
         message_placeholder = st.empty()
         full_response = ""
 
-        for response in openai.ChatCompletion.create(
+        json_response = openai.ChatCompletion.create(
             model=st.session_state.model,
             messages=[
                 {"role": m["role"], "content": m["content"]}
                 for m in st.session_state.messages
             ],
-            stream=True,
-        ):
-            full_response += response.choices[0].delta.get("content", "")
-            # st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
-            # st.session_state.completion_tokens += response["usage"]["completion_tokens"]
-            # st.session_state.total_tokens += response["usage"]["total_tokens"]
+            stream=False,
+        )
+
+        string_response = json_response["choices"][0]["message"]["content"]
+        st.session_state.prompt_tokens += response["usage"]["prompt_tokens"]
+        st.session_state.completion_tokens += response["usage"]["completion_tokens"]
+        st.session_state.total_tokens += response["usage"]["total_tokens"]
+        for s in string_response:
+            full_response += s
             message_placeholder.markdown(full_response + "▌")
 
         message_placeholder.markdown(full_response +  json.dumps(response))
