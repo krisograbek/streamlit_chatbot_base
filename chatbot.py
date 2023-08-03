@@ -60,7 +60,7 @@ st.title("Experience Our AI-powered Customer Service! 🤖")
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.total_tokens = 0
-    st.session_state.cost_of_response = st.session_state.total_tokens * 0.000002
+    st.session_state.cost_of_response = st.session_state.total_tokens * 0.5
 
 
 for message in st.session_state["messages"]:
