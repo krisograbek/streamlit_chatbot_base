@@ -72,6 +72,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.total_tokens = 0
     st.session_state.cost_of_response = 0
+    st.session_state.chatlog = st.empty()
 
 
 for message in st.session_state["messages"]:
@@ -87,6 +88,7 @@ if user_prompt := st.chat_input("Your prompt"):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
+        st.session_state.chatlog.markdown(user_prompt)
 
     # generate responses
     with st.chat_message("assistant"):
@@ -106,8 +108,11 @@ if user_prompt := st.chat_input("Your prompt"):
 
         message_placeholder.markdown(full_response)
 
+    
+
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.total_tokens += num_tokens_from_messages(st.session_state.messages, SELECTED_MODEL)
+    st.session_state.chatlog.markdown(full_response)
     st.session_state.cost_of_response = st.session_state.total_tokens * COST_PER_TOKEN
 
 with st.sidebar:
@@ -117,4 +122,6 @@ with st.sidebar:
     st.write("Total cost of request: ${:.8f}".format(st.session_state.cost_of_response))
 
     # Display the button with custom color
-    st.button("Clear Chat History", on_click = on_button_click)
+    st.button("Clear Chat History and Tokens", on_click = on_button_click)
+    # Create download button
+    st.download_button(label='Download Chatlog', data=st.session_state.chatlog, file_name='chatlog.md')
