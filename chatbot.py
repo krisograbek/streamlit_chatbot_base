@@ -121,5 +121,6 @@ with st.sidebar:
     button_clicked = st.button("Clear Chat History")
     
     if button_clicked:
+        del st.session_state["messages"]
         # Additional action or feedback after button click
         st.write("Additional action after button click")
