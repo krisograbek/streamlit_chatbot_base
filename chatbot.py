@@ -118,7 +118,7 @@ with st.sidebar:
     st.write("Total cost of request: ${:.8f}".format(st.session_state.cost_of_response))
 
     # Display the button with custom color
-    button_clicked = st.button("Click me", on_click=on_button_click)
+    button_clicked = st.button("Clear Chat History")
     
     if button_clicked:
         # Additional action or feedback after button click
