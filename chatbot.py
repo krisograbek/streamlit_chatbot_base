@@ -24,8 +24,7 @@ COSTING_MAP = {
 COST_PER_TOKEN = COSTING_MAP[SELECTED_MODEL]
 
 def on_button_click():
-    # Add your action here
-    st.write("Button clicked!")
+        del st.session_state["messages"]
 
 def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
     """Return the number of tokens used by a list of messages."""
@@ -118,9 +117,4 @@ with st.sidebar:
     st.write("Total cost of request: ${:.8f}".format(st.session_state.cost_of_response))
 
     # Display the button with custom color
-    button_clicked = st.button("Clear Chat History")
-    
-    if button_clicked:
-        del st.session_state["messages"]
-        # Additional action or feedback after button click
-        st.write("Additional action after button click")
+    st.button("Clear Chat History", on_click = on_button_click)
