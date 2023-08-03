@@ -88,7 +88,7 @@ if user_prompt := st.chat_input("Your prompt"):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
-        st.session_state.chatlog.markdown(user_prompt)
+        st.session_state.chatlog.markdown(user_prompt, unsafe_allow_html=True)
 
     # generate responses
     with st.chat_message("assistant"):
@@ -112,7 +112,7 @@ if user_prompt := st.chat_input("Your prompt"):
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.total_tokens += num_tokens_from_messages(st.session_state.messages, SELECTED_MODEL)
-    st.session_state.chatlog.markdown(full_response)
+    st.session_state.chatlog.markdown(full_response, unsafe_allow_html=True)
     st.session_state.cost_of_response = st.session_state.total_tokens * COST_PER_TOKEN
 
 with st.sidebar:
