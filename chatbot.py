@@ -15,6 +15,14 @@ st.set_page_config(
 
 SELECTED_MODEL = "gpt-3.5-turbo"
 
+# make model an option and put COST_PER_TOKEN under states
+COSTING_MAP = {
+    "gpt-3.5-turbo": 0.000002,
+    "gpt-4": 0.00006
+}
+
+COST_PER_TOKEN = COSTING_MAP[SELECTED_MODEL]
+
 def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
     """Return the number of tokens used by a list of messages."""
     try:
@@ -60,7 +68,7 @@ st.title("Experience Our AI-powered Customer Service! 🤖")
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.total_tokens = 0
-    st.session_state.cost_of_response = st.session_state.total_tokens * 0.5
+    st.session_state.cost_of_response = 0
 
 
 for message in st.session_state["messages"]:
@@ -97,6 +105,7 @@ if user_prompt := st.chat_input("Your prompt"):
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.total_tokens += num_tokens_from_messages(st.session_state.messages, SELECTED_MODEL)
+    st.session_state.cost_of_response = st.session_state.total_tokens * COST_PER_TOKEN
 
 with st.sidebar:
     st.title("Session Usage Stats:")
