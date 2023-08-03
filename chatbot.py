@@ -24,7 +24,10 @@ COSTING_MAP = {
 COST_PER_TOKEN = COSTING_MAP[SELECTED_MODEL]
 
 def on_button_click():
-        del st.session_state["messages"]
+    del st.session_state["messages"]
+
+def format_data():
+    variable.markdown("", unsafe_allow_html=True)
 
 def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
     """Return the number of tokens used by a list of messages."""
@@ -88,7 +91,7 @@ if user_prompt := st.chat_input("Your prompt"):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
         st.markdown(user_prompt)
-        st.session_state.chatlog.markdown(user_prompt, unsafe_allow_html=True)
+        st.session_state.chatlog.markdown(user_prompt)
 
     # generate responses
     with st.chat_message("assistant"):
@@ -112,7 +115,7 @@ if user_prompt := st.chat_input("Your prompt"):
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.total_tokens += num_tokens_from_messages(st.session_state.messages, SELECTED_MODEL)
-    st.session_state.chatlog.markdown(full_response, unsafe_allow_html=True)
+    st.session_state.chatlog.markdown(full_response)
     st.session_state.cost_of_response = st.session_state.total_tokens * COST_PER_TOKEN
 
 with st.sidebar:
@@ -123,5 +126,4 @@ with st.sidebar:
 
     # Display the button with custom color
     st.button("Clear Chat History and Tokens", on_click = on_button_click)
-    # Create download button
-    st.download_button(label='Download Chatlog', data=st.session_state.chatlog, file_name='chatlog.md')
+    # Create download button    
