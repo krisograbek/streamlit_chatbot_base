@@ -1,11 +1,11 @@
 import streamlit as st
-import openai
-import os
+from openai import OpenAI
 
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.environ["OPENAI_API_KEY"]
+
+client = OpenAI()
 
 st.title("My Own ChatGPT!🤖")
 
@@ -17,7 +17,7 @@ for message in st.session_state["messages"]:
         st.markdown(message["content"])
 
 if "model" not in st.session_state:
-    st.session_state.model = "gpt-3.5-turbo"
+    st.session_state.model = "gpt-4o-mini"
 
 if user_prompt := st.chat_input("Your prompt"):
     st.session_state.messages.append({"role": "user", "content": user_prompt})
@@ -27,7 +27,7 @@ if user_prompt := st.chat_input("Your prompt"):
     # generate responses
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=st.session_state.model,
             messages=[
                 {"role": m["role"], "content": m["content"]}
